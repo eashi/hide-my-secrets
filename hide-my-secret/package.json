@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:hide-my-secret.helloWorld"
+		"onCommand:hide-my-secret.helloWorld",
+		"onLanguage:yaml"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -41,5 +42,8 @@
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
 		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"yaml-ast-parser": "0.0.43"
 	}
 }
