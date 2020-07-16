@@ -1,0 +1,7 @@
+- use the Kind enumeration
+- figure out exactly what are these types
+- apply something for Sequences 
+- figure out Configurations so we can store the list of keys of secrets ("password", "secret")
+- Publish to code market
+- Make proper README.md and add the names of kind people helped:
+jsobell, jothamr, jTango18
