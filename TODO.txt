@@ -1,7 +1,10 @@
-- use the Kind enumeration
 - figure out exactly what are these types
 - apply something for Sequences 
 - figure out Configurations so we can store the list of keys of secrets ("password", "secret")
 - Publish to code market
 - Make proper README.md and add the names of kind people helped:
 jsobell, jothamr, jTango18
+- change the name of the command from "HelloWorld" to something more real :)
+- Execute the code at activation, not just when invoking the command
+- Toggle the hiding on and off
+- Make the decoration themable, and configurable
