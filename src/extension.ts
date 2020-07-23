@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as yamlParser from 'yaml-ast-parser';
-import { YAMLScalar, Kind } from 'yaml-ast-parser';
+import { YAMLScalar, Kind, YAMLMapping, YAMLNode } from 'yaml-ast-parser';
 
 const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
 
@@ -37,36 +37,38 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[]) {
-	
-	if(node.kind === Kind.MAP) {
-		for(let childNode of node.mappings) {
+
+	if (node.kind === Kind.MAP) {
+		for (let childNode of node.mappings) {
 			traverseAndChange(childNode, editor, ranges);
 		}
-	} else
-	{
+	} else {
 		if (node.kind === Kind.MAPPING) { //it's an object (key : object)
 			let keyValue = node.key.value;
-			if (node.value.kind === Kind.MAP ){ //it's a mapping, it has a property called mappings (applies to Root)
-				for(let childNode of node.value.mappings) {
-					traverseAndChange(childNode, editor, ranges);
-				}
-			} else if (node.value.kind === Kind.SEQ ) { // it's sequence 
-
-			} else if (node.value.kind === Kind.SCALAR && keyValue === "app") {
-				var scalar = node.value as YAMLScalar;
-				addSecretRange(scalar, editor, ranges);
+			if (keyValue === "imagePullPolicy") {
+				addSecretRange(node.value, editor, ranges);
+			} else {
+				if (node.value.kind === Kind.MAP) { //it's a mapping, it has a property called mappings (applies to Root)
+					for (let childNode of node.value.mappings) {
+						traverseAndChange(childNode, editor, ranges);
+					}
+				} else if (node.value.kind === Kind.SEQ) { // it's sequence 
+					for (let childNode of node.value.items) {
+						traverseAndChange(childNode, editor, ranges);
+					}
+				} 
 			}
 		}
 	}
 
 }
 
-function addSecretRange(scalar: YAMLScalar, editor: vscode.TextEditor, ranges: vscode.Range[]) {
-	ranges.push(new vscode.Range( editor.document.positionAt(scalar.startPosition), editor.document.positionAt(scalar.endPosition)));
+function addSecretRange(scalar: YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[]) {
+	ranges.push(new vscode.Range(editor.document.positionAt(scalar.startPosition), editor.document.positionAt(scalar.endPosition)));
 }
 
-function setDecoration(editor: vscode.TextEditor, ranges: vscode.Range[]){
+function setDecoration(editor: vscode.TextEditor, ranges: vscode.Range[]) {
 	editor.setDecorations(secretDecorationType, ranges);
 }
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
