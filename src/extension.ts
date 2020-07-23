@@ -5,10 +5,17 @@ import * as yamlParser from 'yaml-ast-parser';
 import { YAMLScalar, Kind, YAMLMapping, YAMLNode } from 'yaml-ast-parser';
 
 const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
+let toggle = true;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+
+	//TODO: check configuration, if true then call function, otherwise don't do anything
+	const editor = vscode.window.activeTextEditor;
+	if (editor) {
+		FindRangesAndDecorate(editor, toggle);
+	}
 
 	console.log('Congratulations, your extension "hide-my-secret" is now active!');
 
@@ -17,23 +24,34 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	//TODO: Change the command name from "helloWorld" to "somethingElse *grin*"
 	let disposable = vscode.commands.registerCommand('hide-my-secret.helloWorld', () => {
+
 		// The code you place here will be executed every time your command is executed
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-
-			let secretRanges: vscode.Range[] = [];
-			const document = editor.document;
-			let parsed = yamlParser.load(document.getText());
-			console.log(parsed);
-			traverseAndChange(parsed, editor, secretRanges);
-
-			setDecoration(editor, secretRanges);
+			toggle = !toggle;
+			FindRangesAndDecorate(editor, toggle);
 		}
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from hide-my-secret!');
+
 	});
 
 	context.subscriptions.push(disposable);
+}
+
+function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean) {
+	if (hide) {
+		let secretRanges: vscode.Range[] = [];
+		const document = editor.document;
+		let parsed = yamlParser.load(document.getText());
+		console.log(parsed);
+		traverseAndChange(parsed, editor, secretRanges);
+
+		setDecoration(editor, secretRanges);
+	}
+	else {
+		editor.setDecorations(secretDecorationType, []);
+	}
 }
 
 function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[]) {
@@ -56,7 +74,7 @@ function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor,
 					for (let childNode of node.value.items) {
 						traverseAndChange(childNode, editor, ranges);
 					}
-				} 
+				}
 			}
 		}
 	}
