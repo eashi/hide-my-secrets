@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as yamlParser from 'yaml-ast-parser';
-import { YAMLScalar } from 'yaml-ast-parser';
+import { YAMLScalar, Kind } from 'yaml-ast-parser';
 
 const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
 
@@ -38,22 +38,21 @@ export function activate(context: vscode.ExtensionContext) {
 
 function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[]) {
 	
-	if(node.kind === 2) {
+	if(node.kind === Kind.MAP) {
 		for(let childNode of node.mappings) {
 			traverseAndChange(childNode, editor, ranges);
 		}
-		
-	} 
+	} else
 	{
-		if (node.kind === 1) { //it's an object (key : object)
+		if (node.kind === Kind.MAPPING) { //it's an object (key : object)
 			let keyValue = node.key.value;
-			if (node.value.kind === 2 ){ //it's a mapping, it has a property called mappings (applies to Root)
+			if (node.value.kind === Kind.MAP ){ //it's a mapping, it has a property called mappings (applies to Root)
 				for(let childNode of node.value.mappings) {
 					traverseAndChange(childNode, editor, ranges);
 				}
-			} else if (node.value.kind === 3 ) { // it's sequence 
+			} else if (node.value.kind === Kind.SEQ ) { // it's sequence 
 
-			} else if (node.value.kind === 0 && keyValue === "app") {
+			} else if (node.value.kind === Kind.SCALAR && keyValue === "app") {
 				var scalar = node.value as YAMLScalar;
 				addSecretRange(scalar, editor, ranges);
 			}
