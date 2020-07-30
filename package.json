@@ -17,8 +17,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "hide-my-secret.helloWorld",
-				"title": "Hello World"
+				"command": "hide-my-secret.HideUnhideSecrets",
+				"title": "Hide-My-Secret:Hide/unhide YAML secrets"
 			}
 		]
 	},

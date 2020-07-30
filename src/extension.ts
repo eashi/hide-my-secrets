@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	//TODO: Change the command name from "helloWorld" to "somethingElse *grin*"
-	let disposable = vscode.commands.registerCommand('hide-my-secret.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('hide-my-secret.HideUnhideSecrets', () => {
 
 		// The code you place here will be executed every time your command is executed
 		const editor = vscode.window.activeTextEditor;
@@ -63,7 +63,7 @@ function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor,
 	} else {
 		if (node.kind === Kind.MAPPING) { //it's an object (key : object)
 			let keyValue = node.key.value;
-			if (keyValue === "imagePullPolicy") {
+			if (keyValue === "app") {
 				addSecretRange(node.value, editor, ranges);
 			} else {
 				if (node.value.kind === Kind.MAP) { //it's a mapping, it has a property called mappings (applies to Root)
