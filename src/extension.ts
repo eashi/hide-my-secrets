@@ -10,6 +10,18 @@ const secretDecorationType = vscode.window.createTextEditorDecorationType({ back
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+
+	vscode.window.onDidChangeActiveTextEditor(e => {
+	// 	let config = vscode.workspace.getConfiguration();
+	// let hide = config.get("hide-my-secret.hide") as boolean;
+	let hide = true;
+	let editor = vscode.window.activeTextEditor;
+		if(editor) {
+			FindRangesAndDecorate(editor, hide);
+		}
+	});
+
+
 	let config = vscode.workspace.getConfiguration();
 	let hide = config.get("hide-my-secret.hide") as boolean;
 	//TODO: check configuration, if true then call function, otherwise don't do anything
