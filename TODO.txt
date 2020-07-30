@@ -7,3 +7,4 @@ jsobell, jothamr, jTango18, codeAndCoffee
 - Toggle the hiding on and off
 - Make the decoration themable, and configurable
 - Add unit test
+- when file changes, should we parse again?!
