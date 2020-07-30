@@ -20,7 +20,17 @@
 				"command": "hide-my-secret.HideUnhideSecrets",
 				"title": "Hide-My-Secret:Hide/unhide YAML secrets"
 			}
-		]
+		],
+		"configuration":{
+			"title": "hide-my-secret",
+			"properties": {
+				"hide-my-secret.hide": {
+					"type": "boolean",
+					"default": true,
+					"description": "Set this to true if you want to hide your secrets"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

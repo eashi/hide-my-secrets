@@ -5,16 +5,17 @@ import * as yamlParser from 'yaml-ast-parser';
 import { YAMLScalar, Kind, YAMLMapping, YAMLNode } from 'yaml-ast-parser';
 
 const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
-let toggle = true;
+// let hide = true;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
+	let config = vscode.workspace.getConfiguration();
+	let hide = config.get("hide-my-secret.hide") as boolean;
 	//TODO: check configuration, if true then call function, otherwise don't do anything
-	const editor = vscode.window.activeTextEditor;
+	let editor = vscode.window.activeTextEditor;
 	if (editor) {
-		FindRangesAndDecorate(editor, toggle);
+		FindRangesAndDecorate(editor, hide);
 	}
 
 	console.log('Congratulations, your extension "hide-my-secret" is now active!');
@@ -22,14 +23,15 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	//TODO: Change the command name from "helloWorld" to "somethingElse *grin*"
-	let disposable = vscode.commands.registerCommand('hide-my-secret.HideUnhideSecrets', () => {
+	let disposable = vscode.commands.registerCommand('hide-my-secret.HideUnhideSecrets', async () => {
 
 		// The code you place here will be executed every time your command is executed
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			toggle = !toggle;
-			FindRangesAndDecorate(editor, toggle);
+			let config = vscode.workspace.getConfiguration();
+			hide = !config.get("hide-my-secret.hide") as boolean;
+			await config.update("hide-my-secret.hide", hide, vscode.ConfigurationTarget.Global);
+			FindRangesAndDecorate(editor, hide);
 		}
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from hide-my-secret!');
