@@ -5,61 +5,56 @@ import * as yamlParser from 'yaml-ast-parser';
 import { YAMLScalar, Kind, YAMLMapping, YAMLNode } from 'yaml-ast-parser';
 
 const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
-// let hide = true;
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
 	vscode.window.onDidChangeActiveTextEditor(e => {
-	// 	let config = vscode.workspace.getConfiguration();
-	// let hide = config.get("hide-my-secret.hide") as boolean;
-	let hide = true;
+	
+	let config = vscode.workspace.getConfiguration();
+	let hide = config.get("hide-my-secret.hide") as boolean;
+	let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
+	
 	let editor = vscode.window.activeTextEditor;
 		if(editor) {
-			FindRangesAndDecorate(editor, hide);
+			FindRangesAndDecorate(editor, hide, secretKeys);
 		}
 	});
 
 
 	let config = vscode.workspace.getConfiguration();
 	let hide = config.get("hide-my-secret.hide") as boolean;
-	//TODO: check configuration, if true then call function, otherwise don't do anything
+	let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
 	let editor = vscode.window.activeTextEditor;
 	if (editor) {
-		FindRangesAndDecorate(editor, hide);
+		FindRangesAndDecorate(editor, hide, secretKeys);
 	}
 
 	console.log('Congratulations, your extension "hide-my-secret" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('hide-my-secret.HideUnhideSecrets', async () => {
 
-		// The code you place here will be executed every time your command is executed
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			let config = vscode.workspace.getConfiguration();
 			hide = !config.get("hide-my-secret.hide") as boolean;
 			await config.update("hide-my-secret.hide", hide, vscode.ConfigurationTarget.Global);
-			FindRangesAndDecorate(editor, hide);
-		}
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from hide-my-secret!');
+		
+			let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
 
+			FindRangesAndDecorate(editor, hide, secretKeys);
+		}
 	});
 
 	context.subscriptions.push(disposable);
 }
 
-function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean) {
+function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean, secretKeys: string[]) {
 	if (hide) {
 		let secretRanges: vscode.Range[] = [];
 		const document = editor.document;
 		let parsed = yamlParser.load(document.getText());
 		console.log(parsed);
-		traverseAndChange(parsed, editor, secretRanges);
+		traverseAndChange(parsed, editor, secretRanges, secretKeys);
 
 		setDecoration(editor, secretRanges);
 	}
@@ -68,25 +63,25 @@ function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean) {
 	}
 }
 
-function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[]) {
+function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[], secretKeys: string[]) {
 
 	if (node.kind === Kind.MAP) {
 		for (let childNode of node.mappings) {
-			traverseAndChange(childNode, editor, ranges);
+			traverseAndChange(childNode, editor, ranges, secretKeys);
 		}
 	} else {
 		if (node.kind === Kind.MAPPING) { //it's an object (key : object)
 			let keyValue = node.key.value;
-			if (keyValue === "app") {
+			if (secretKeys.includes(keyValue)) {
 				addSecretRange(node.value, editor, ranges);
 			} else {
 				if (node.value.kind === Kind.MAP) { //it's a mapping, it has a property called mappings (applies to Root)
 					for (let childNode of node.value.mappings) {
-						traverseAndChange(childNode, editor, ranges);
+						traverseAndChange(childNode, editor, ranges, secretKeys);
 					}
 				} else if (node.value.kind === Kind.SEQ) { // it's sequence 
 					for (let childNode of node.value.items) {
-						traverseAndChange(childNode, editor, ranges);
+						traverseAndChange(childNode, editor, ranges, secretKeys);
 					}
 				}
 			}

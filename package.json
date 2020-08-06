@@ -1,6 +1,7 @@
 {
 	"name": "hide-my-secret",
 	"displayName": "hide-my-secret",
+	"publisher": "Emad",
 	"description": "Hides secrets in YAML files",
 	"version": "0.0.1",
 	"engines": {
@@ -28,6 +29,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Set this to true if you want to hide your secrets"
+				},
+				"hide-my-secret.secretKeys": {
+					"type": "array",
+					"default": ["app"],
+					"description": "List of keywords that whose values you want to hide"
 				}
 			}
 		}

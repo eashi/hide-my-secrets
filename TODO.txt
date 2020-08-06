@@ -1,5 +1,6 @@
 - figure out Configurations so we can store the list of keys of secrets ("password", "secret")
+- Make the decoration themable, and configurable
+- Figure out exactly how configuration schema works. Because we are using the . notion and it feels ugly
 - when file changes, should we parse again?!
 - Publish to code market
-- Make the decoration themable, and configurable
 - Add unit test
