@@ -63,7 +63,7 @@ function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean, secretK
 	}
 }
 
-function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[], secretKeys: string[]) {
+export function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[], secretKeys: string[]) {
 
 	if (node.kind === Kind.MAP) {
 		for (let childNode of node.mappings) {

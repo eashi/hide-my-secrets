@@ -1,0 +1,16 @@
+apiVersion: keda.k8s.io/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kaboom-scaledobject
+spec:
+  scaleTargetRef:
+    deploymentName: myaspapp
+  cooldownPeriod: 10
+  maxReplicaCount: 30
+  triggers:
+  - type: external
+    metadata:
+      scalerAddress: kaboom.default:80
+      accessToken: twitch-token-here
+      twitchUserName: emadashi
+      channelName: emadashi
