@@ -1,4 +1,4 @@
-- Add unit test
+- Copy test yaml file to "out" and use the right path
 - Publish to code market
 - Make the decoration themable, and configurable
 - when file changes, should we parse again?!
