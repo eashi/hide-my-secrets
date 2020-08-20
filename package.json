@@ -1,8 +1,9 @@
 {
 	"name": "hide-my-secrets",
 	"displayName": "Hide My Secrets",
-	"publisher": "Emad Alashi",
+	"publisher": "emadashi",
 	"description": "Hides secrets in YAML files",
+	"icon": "128x128.png",
 	"repository": {
 		"url": "https://github.com/eashi/hide-my-secrets"
 	},
