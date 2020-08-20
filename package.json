@@ -1,7 +1,7 @@
 {
-	"name": "hide-my-secret",
-	"displayName": "hide-my-secret",
-	"publisher": "Emad",
+	"name": "hide-my-secrets",
+	"displayName": "Hide My Secrets",
+	"publisher": "Emad Alashi",
 	"description": "Hides secrets in YAML files",
 	"version": "0.0.1",
 	"engines": {
@@ -11,26 +11,26 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:hide-my-secret.helloWorld",
+		"onCommand:hide-my-secrets.HideUnhideSecrets",
 		"onLanguage:yaml"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "hide-my-secret.HideUnhideSecrets",
-				"title": "Hide-My-Secret:Hide/unhide YAML secrets"
+				"command": "hide-my-secrets.HideUnhideSecrets",
+				"title": "Hide My Secrets: Toggle Hide"
 			}
 		],
 		"configuration":{
-			"title": "hide-my-secret",
+			"title": "hide-my-secrets",
 			"properties": {
-				"hide-my-secret.hide": {
+				"hide-my-secrets.hide": {
 					"type": "boolean",
 					"default": true,
 					"description": "Set this to true if you want to hide your secrets"
 				},
-				"hide-my-secret.secretKeys": {
+				"hide-my-secrets.secretKeys": {
 					"type": "array",
 					"default": ["password", "connectionstring", "token"],
 					"description": "List of keywords that whose values you want to hide"

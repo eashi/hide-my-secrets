@@ -11,8 +11,8 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.window.onDidChangeActiveTextEditor(e => {
 	
 	let config = vscode.workspace.getConfiguration();
-	let hide = config.get("hide-my-secret.hide") as boolean;
-	let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
+	let hide = config.get("hide-my-secrets.hide") as boolean;
+	let secretKeys = config.get("hide-my-secrets.secretKeys") as string[];
 	
 	let editor = vscode.window.activeTextEditor;
 		if(editor) {
@@ -22,24 +22,24 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 	let config = vscode.workspace.getConfiguration();
-	let hide = config.get("hide-my-secret.hide") as boolean;
-	let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
+	let hide = config.get("hide-my-secrets.hide") as boolean;
+	let secretKeys = config.get("hide-my-secrets.secretKeys") as string[];
 	let editor = vscode.window.activeTextEditor;
 	if (editor) {
 		FindRangesAndDecorate(editor, hide, secretKeys);
 	}
 
-	console.log('Congratulations, your extension "hide-my-secret" is now active!');
+	console.log('Congratulations, your extension "hide-my-secrets" is now active!');
 
-	let disposable = vscode.commands.registerCommand('hide-my-secret.HideUnhideSecrets', async () => {
+	let disposable = vscode.commands.registerCommand('hide-my-secrets.HideUnhideSecrets', async () => {
 
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			let config = vscode.workspace.getConfiguration();
-			hide = !config.get("hide-my-secret.hide") as boolean;
-			await config.update("hide-my-secret.hide", hide, vscode.ConfigurationTarget.Global);
+			hide = !config.get("hide-my-secrets.hide") as boolean;
+			await config.update("hide-my-secrets.hide", hide, vscode.ConfigurationTarget.Global);
 		
-			let secretKeys = config.get("hide-my-secret.secretKeys") as string[];
+			let secretKeys = config.get("hide-my-secrets.secretKeys") as string[];
 
 			FindRangesAndDecorate(editor, hide, secretKeys);
 		}

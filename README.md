@@ -1,8 +1,8 @@
-# hide-my-secret 
+# hide-my-secrets 
 
 A Visual Studio Code extension to hide secret text in YAML files. The extension is written live on Twitch on [emadashi's channel](https://twitch.tv/emadashi). So make sure you join every Thursday at 20:00 AEST time.
 
-![Hiding Secrets](hide-my-secret.gif)
+![Hiding Secrets](https://raw.githubusercontent.com/eashi/hide-my-secrets/master/hide-my-secret.gif)
 
 
 ## Acknolwedgement
@@ -14,6 +14,7 @@ Awesome people in the Twitch channel help without calling for credit, without th
 - @jothamr
 - Amal Abeygunawardana
 - Jimmy_P
+- hossambarakat
 
 ## Features
 
@@ -23,12 +24,12 @@ Once activated this extension hides secrets in YAML files. The secrets can be id
 ### Hide
 Toggle the extension on and off to hide/unhide the secrets.
 ``` js
-"hide-my-secret.hide": true,
+"hide-my-secrets.hide": true,
 ```
 ### List of secret keys
 Add here all the keys that represent secrets.
 ``` js
-"hide-my-secret.secretKeys": [
+"hide-my-secrets.secretKeys": [
         "password",
         "connectionstring",
         "token"
