@@ -32,7 +32,7 @@
 				},
 				"hide-my-secret.secretKeys": {
 					"type": "array",
-					"default": ["app"],
+					"default": ["password", "connectionstring", "token"],
 					"description": "List of keywords that whose values you want to hide"
 				}
 			}
