@@ -2,8 +2,8 @@
 
 All notable changes to the "hide-my-secrets" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## [0.0.1]
+### Added
+- Hide the secrets in YAML files
+- Toggle command to hide/unhide secrets
+- Configure the keys that are considered secrets in YAML files.

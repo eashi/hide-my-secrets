@@ -16,9 +16,6 @@ Awesome people in the Twitch channel help without calling for credit, without th
 - Jimmy_P
 - hossambarakat
 
-### Icon of this Extension
-"secret identity" by Ian Ransley from the Noun Project
-
 ## Features
 
 Once activated this extension hides secrets in YAML files. The secrets can be identified by configuring the extension and adding keys that are considered secrets e.g. "password", "key", "token"..etc.

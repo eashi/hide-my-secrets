@@ -3,6 +3,9 @@
 	"displayName": "Hide My Secrets",
 	"publisher": "Emad Alashi",
 	"description": "Hides secrets in YAML files",
+	"repository": {
+		"url": "https://github.com/eashi/hide-my-secrets"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.46.0"
