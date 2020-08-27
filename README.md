@@ -5,16 +5,17 @@ A Visual Studio Code extension to hide secret text in YAML files. The extension 
 ![Hiding Secrets](https://raw.githubusercontent.com/eashi/hide-my-secrets/master/hide-my-secret.gif)
 
 
-## Acknolwedgement
+## Acknowledgement
 
 Awesome people in the Twitch channel help without calling for credit, without them this extension wouldn't have been possible. Big thanks to them:
 
-- @codeandcoffee
-- @jsobell
-- @jothamr
+- [@codeandcoffee](https://github.com/tkoster)
+- [@jsobell](https://github.com/jsobell)
+- [@jothamr](https://www.twitch.tv/jothamr)
 - Amal Abeygunawardana
-- Jimmy_P
-- hossambarakat
+- [@pjimmy](https://twitter.com/pjimmy)
+- [@hossambarakat](https://twitter.com/hossambarakat_)
+- [@JTango18](https://twitter.com/jtango18)
 
 ## Features
 

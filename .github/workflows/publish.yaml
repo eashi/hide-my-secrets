@@ -2,7 +2,9 @@ on:
   push:
     branches:
       - master
-
+  release:
+    types:
+    - created
 jobs:
   build:
     strategy:
@@ -21,4 +23,9 @@ jobs:
       uses: GabrielBB/xvfb-action@v1.2
       with:
         run: npm test
+    - name: Publish
+      if: success() && startsWith( github.ref, 'refs/tags/releases/') && matrix.os == 'ubuntu-latest'
+      run: npm run deploy
+      env:
+        VSCE_PAT: $
 

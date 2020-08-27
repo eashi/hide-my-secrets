@@ -1,5 +1,5 @@
 - Fix Ackknowledgement (add more people, make profiles linkable, and fix the typo)
-- Use GitHub Actions to publish to market
+- Use GitHub Actions properly like this: https://www.visualstudiogeeks.com/github/extensions/publish-vscode-extension-using-github-actions
 - Copy test yaml file to "out" and use the right path
 - Make the decoration themable, and configurable
 - when file changes, should we parse again?!
