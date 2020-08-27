@@ -1,4 +1,5 @@
+- Fix Ackknowledgement (add more people, make profiles linkable, and fix the typo)
+- Use GitHub Actions to publish to market
 - Copy test yaml file to "out" and use the right path
-- Publish to code market
 - Make the decoration themable, and configurable
 - when file changes, should we parse again?!
