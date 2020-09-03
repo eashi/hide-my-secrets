@@ -2,6 +2,9 @@
 
 All notable changes to the "hide-my-secrets" extension will be documented in this file.
 
+## [1.0.3]
+Added "npm version" as a dev dependency
+
 ## [1.0.1]
 - Added VSCE as a dev dependency
 
