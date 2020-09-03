@@ -29,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 		FindRangesAndDecorate(editor, hide, secretKeys);
 	}
 
+	// try this comment
 	console.log('Congratulations, your extension "hide-my-secrets" is now active!');
 
 	let disposable = vscode.commands.registerCommand('hide-my-secrets.HideUnhideSecrets', async () => {
