@@ -7,7 +7,7 @@
 	"repository": {
 		"url": "https://github.com/eashi/hide-my-secrets"
 	},
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
@@ -26,7 +26,7 @@
 				"title": "Hide My Secrets: Toggle Hide"
 			}
 		],
-		"configuration":{
+		"configuration": {
 			"title": "hide-my-secrets",
 			"properties": {
 				"hide-my-secrets.hide": {
@@ -36,7 +36,11 @@
 				},
 				"hide-my-secrets.secretKeys": {
 					"type": "array",
-					"default": ["password", "connectionstring", "token"],
+					"default": [
+						"password",
+						"connectionstring",
+						"token"
+					],
 					"description": "List of keywords that whose values you want to hide"
 				}
 			}
