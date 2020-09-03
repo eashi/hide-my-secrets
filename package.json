@@ -26,7 +26,7 @@
 				"title": "Hide My Secrets: Toggle Hide"
 			}
 		],
-		"configuration":{
+		"configuration": {
 			"title": "hide-my-secrets",
 			"properties": {
 				"hide-my-secrets.hide": {
@@ -36,7 +36,11 @@
 				},
 				"hide-my-secrets.secretKeys": {
 					"type": "array",
-					"default": ["password", "connectionstring", "token"],
+					"default": [
+						"password",
+						"connectionstring",
+						"token"
+					],
 					"description": "List of keywords that whose values you want to hide"
 				}
 			}
@@ -63,7 +67,8 @@
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
 		"vscode-test": "^1.3.0",
-		"vsce": "1.79.3"
+		"vsce": "1.79.3",
+		"npm-version": "1.1.0"
 	},
 	"dependencies": {
 		"yaml-ast-parser": "0.0.43"
