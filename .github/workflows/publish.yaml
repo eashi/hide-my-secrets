@@ -26,8 +26,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${GITHUB_REF:10}
-        release_name: ${GITHUB_REF:10}
+        tag_name: ${{GITHUB_REF:10}}
+        release_name: ${{GITHUB_REF:10}}
     - name: Publish
       # if: success() && startsWith( github.ref, 'refs/heads/master') && matrix.os == 'ubuntu-latest'
       if: success() && matrix.os == 'ubuntu-latest'
