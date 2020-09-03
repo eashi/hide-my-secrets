@@ -1,10 +1,7 @@
 on:
   push:
-    branches:
-      - master
-  release:
-    types:
-    - created
+    tags:
+      - "v*.*.*"
 jobs:
   build:
     strategy:
@@ -23,8 +20,16 @@ jobs:
       uses: GabrielBB/xvfb-action@v1.2
       with:
         run: npm test
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      if: github.ref == 'refs/heads/master'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${GITHUB_REF:10}
+        release_name: ${GITHUB_REF:10}
     - name: Publish
-      if: success() && startsWith( github.ref, 'refs/tags/releases/') && matrix.os == 'ubuntu-latest'
+      if: success() && startsWith( github.ref, 'refs/heads/master') && matrix.os == 'ubuntu-latest'
       run: npm run deploy
       env:
         VSCE_PAT: ${{secrets.VSCE_PAT}}
