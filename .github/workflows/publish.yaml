@@ -1,10 +1,7 @@
 on:
   push:
-    branches:
-      - master
-  release:
-    types:
-    - created
+    tags:
+      - "v*.*.*"
 jobs:
   build:
     strategy:
