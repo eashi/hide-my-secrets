@@ -6,7 +6,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
@@ -20,20 +21,17 @@ jobs:
       uses: GabrielBB/xvfb-action@v1.2
       with:
         run: npm test
-    - name: Prints the current branch name
-      run: echo "${GITHUB_REF} and ${{ github.ref }}"
     - name: Create GitHub Release
+      if: success() && matrix.os == 'ubuntu-latest'
       uses: actions/create-release@v1
-      # if: github.ref == 'refs/heads/master'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-    # - name: Publish
-    #   # if: success() && startsWith( github.ref, 'refs/heads/master') && matrix.os == 'ubuntu-latest'
-    #   if: success() && matrix.os == 'ubuntu-latest'
-    #   run: npm run deploy
-    #   env:
-    #     VSCE_PAT: ${{secrets.VSCE_PAT}}
+        tag_name: "${{ github.ref }}"
+        release_name: "${{ github.ref }}"
+    - name: Publish
+      if: success() && matrix.os == 'ubuntu-latest'
+      run: npm run deploy
+      env:
+        VSCE_PAT: ${{secrets.VSCE_PAT}}
 
