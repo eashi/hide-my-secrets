@@ -2,6 +2,9 @@
 
 All notable changes to the "hide-my-secrets" extension will be documented in this file.
 
+## [1.1.0]
+Support JSON as well. The extension will hide secrets in JSON files according to the list of secret keys in the config.
+
 ## [1.0.4]
 Change the source of release
 
