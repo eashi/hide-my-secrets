@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import * as yamlParser from 'yaml-ast-parser';
 import { YAMLScalar, Kind, YAMLMapping, YAMLNode } from 'yaml-ast-parser';
 
-const secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
+let secretDecorationType = vscode.window.createTextEditorDecorationType({ backgroundColor: 'red', color: 'red' });
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -13,7 +13,14 @@ export function activate(context: vscode.ExtensionContext) {
 	let config = vscode.workspace.getConfiguration();
 	let hide = config.get("hide-my-secrets.hide") as boolean;
 	let secretKeys = config.get("hide-my-secrets.secretKeys") as string[];
-	
+	let redactColor = config.get("hide-my-secrets.redactColor") as string;
+
+	secretDecorationType = 
+		vscode.window.createTextEditorDecorationType({
+			backgroundColor: redactColor, 
+			color: redactColor
+		});
+
 	let editor = vscode.window.activeTextEditor;
 		if(editor) {
 			FindRangesAndDecorate(editor, hide, secretKeys);

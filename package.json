@@ -44,6 +44,11 @@
 						"token"
 					],
 					"description": "List of keywords that whose values you want to hide"
+				},
+				"hide-my-secrets.redactColor": {
+					"type": "string",
+					"default": "red",
+					"description": "Color of the rectangles that hide your secrets"
 				}
 			}
 		}
