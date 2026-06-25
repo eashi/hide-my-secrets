@@ -38,8 +38,20 @@
 				"hide-my-secrets.secretKeys": {
 					"type": "array",
 					"default": [
-						"password",
+						"access_key",
+						"api_key",
+						"aws_secret_access_key",
+						"azure_client_secret",
+						"client_secret",
+						"connection_string",
 						"connectionstring",
+						"google_client_secret",
+						"jwt_token",
+						"oauth_token",
+						"password",
+						"private_key",
+						"secret_key",
+						"secret_token",
 						"token"
 					],
 					"description": "List of keywords that whose values you want to hide"

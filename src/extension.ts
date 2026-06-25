@@ -72,6 +72,8 @@ function FindRangesAndDecorate(editor: vscode.TextEditor, hide: boolean, secretK
 
 export function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.TextEditor, ranges: vscode.Range[], secretKeys: string[]) {
 
+	let testRegEx = new RegExp(secretKeys.join("|"), "i");
+
 	if (node.kind === Kind.MAP) {
 		for (let childNode of node.mappings) {
 			traverseAndChange(childNode, editor, ranges, secretKeys);
@@ -79,7 +81,7 @@ export function traverseAndChange(node: yamlParser.YAMLNode, editor: vscode.Text
 	} else {
 		if (node.kind === Kind.MAPPING) { //it's an object (key : object)
 			let keyValue = node.key.value;
-			if (secretKeys.includes(keyValue)) {
+			if (testRegEx.test(keyValue)) {
 				addSecretRange(node.value, editor, ranges);
 			} else {
 				if (node.value.kind === Kind.MAP) { //it's a mapping, it has a property called mappings (applies to Root)
